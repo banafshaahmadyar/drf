@@ -55,6 +55,8 @@ INSTALLED_APPS = [
 
     'profiles',
     'posts',
+    'comments',
+
 ]
 
 MIDDLEWARE = [
@@ -139,7 +141,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 
 
 # Default primary key field type
