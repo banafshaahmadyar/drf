@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from pathlib import Path
 import os
+import dj_database_url
 
 
 if os.path.exists('env.py'):
@@ -37,15 +38,26 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication'
         if 'DEV' in os.environ
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
-    )]
+    )],
+    'DEFAULT_PAGINATION_CLASS':  'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%d %b %Y',
+
+
 }
+
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer'
+    ]
+
 
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER': 'drf.serializers.CurrentUserSerializer'}
-
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'drf.serializers.CurrentUserSerializer'}
 
 
 SECRET_KEY = 'django-insecure-13^_yme&_bmxm3_5s1b$3n&#=zc&aoa^3cr@budf!%txlm@pk8'
@@ -120,12 +132,16 @@ WSGI_APPLICATION = 'drf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+if 'DEV' in os.environ:
+    DATABASES = {
+        'default': ({
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        } if 'DEV' in os.environ else dj_database_url.parse(
+            os.environ.get('DATABASE_URL')
+        ))
     }
-}
 
 
 # Password validation
