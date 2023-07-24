@@ -9,7 +9,7 @@ class PostListViewTests(APITestCase):
         User.objects.create_user(username='banafsha', password='pass')
 
     def test_can_list_posts(self):
-        adam = User.objects.get(username='banafsha')
+        banafsha = User.objects.get(username='banafsha')
         Post.objects.create(owner=banafsha, title='a title')
         response = self.client.get('/posts/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -33,10 +33,10 @@ class PostDetailViewTests(APITestCase):
         banafsha = User.objects.create_user(username='banafsha', password='pass')
         aso = User.objects.create_user(username='aso', password='pass')
         Post.objects.create(
-            owner=aso, title='a title', content='adams content'
+            owner=aso, title='a title', content='banafshas content'
         )
         Post.objects.create(
-            owner=aso, title='another title', content='brians content'
+            owner=aso, title='another title', content='asos content'
         )
 
     def test_can_retrieve_post_using_valid_id(self):
