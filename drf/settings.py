@@ -58,14 +58,14 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf.serializers.CurrentUserSerializer'}
 
-
- # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY',"CreateANEWRandomValueHere")
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY', "CreateANEWRandomValueHere")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'drf-app.herokuapp.com', '8000-banafshaahmadyar-drf-p6fhnu0gamy.ws-us102.gitpod.io','drf-app-53977978fb78.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'drf-app.herokuapp.com',
+                 '8000-banafshaahmadyar-drf-p6fhnu0gamy.ws-us102.gitpod.io', 'drf-app-53977978fb78.herokuapp.com']
 
 
 # Application definition
@@ -110,19 +110,18 @@ MIDDLEWARE = [
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
-     CORS_ALLOWED_ORIGINS = [
-         os.environ.get('CLIENT_ORIGIN')
-     ]
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
 else:
-     CORS_ALLOWED_ORIGIN_REGEXES = [
-         r"^https://.*\.gitpod\.io$",
-     ]
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://.*\.gitpod\.io$",
+    ]
 
 CORS_ALLOW_CREDENTIALS = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
-
 
 
 ROOT_URLCONF = 'drf.urls'
