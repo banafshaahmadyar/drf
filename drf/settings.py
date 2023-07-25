@@ -63,9 +63,9 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY',"CreateANEWRandomValueHere")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'drf-app.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'drf-app.herokuapp.com', '8000-banafshaahmadyar-drf-p6fhnu0gamy.ws-us102.gitpod.io','drf-app-53977978fb78.herokuapp.com']
 
 
 # Application definition
